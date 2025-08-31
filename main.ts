@@ -12,9 +12,6 @@ const endings = fs.readFileSync("endings.txt", "utf-8").split("\n")
 const domains = fs.readFileSync("names.txt", "utf-8").split("\n")
 let output: string[] = []
 
-const tableExists = await db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='domains';")
-console.log(tableExists)
-
 
 
 dns.setServers([
@@ -29,7 +26,6 @@ for (const domain of domains) {
         try {
             await dns.promises.resolve(domain + "." + ending)
         } catch (e) {
-            // Domain does not exist
             console.log(`Domain ${domain}.${ending} does not exist`)
             output.push(`${domain}.${ending}`)
             await db.run(
@@ -44,16 +40,3 @@ for (const domain of domains) {
 }
 
 fs.writeFileSync("output.txt", output.join("\n"), "utf-8")
-
-
-
-/**import list from "./list.json"
-import * as fs from "fs"
-
-let output: string[] = []
-
-for (const emoji of list) {
-    output.push(emoji.character)
-}
-
-fs.writeFileSync("names.txt", output.join("\n"), "utf-8")**/
