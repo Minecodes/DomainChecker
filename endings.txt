@@ -1,0 +1,16 @@
+de
+com
+eu
+moe
+net
+org
+email
+zip
+dev
+app
+xyz
+tech
+pro
+host
+io
+pw
